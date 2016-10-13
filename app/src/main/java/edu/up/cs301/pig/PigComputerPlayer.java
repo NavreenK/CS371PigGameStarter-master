@@ -1,0 +1,48 @@
+package edu.up.cs301.pig;
+
+import edu.up.cs301.game.GameComputerPlayer;
+import edu.up.cs301.game.actionMsg.GameAction;
+import edu.up.cs301.game.infoMsg.GameInfo;
+import edu.up.cs301.game.util.Tickable;
+
+/**
+ * An AI for Pig
+ *
+ * @author Andrew M. Nuxoll
+ * @version August 2015
+ */
+public class PigComputerPlayer extends GameComputerPlayer {
+
+    /**
+     * ctor does nothing extra
+     */
+    private PigGameState state;
+    public PigComputerPlayer(String name) {
+        super(name);
+    }
+
+    /**
+     * callback method--game's state has changed
+     *
+     * @param info
+     * 		the information (presumably containing the game's state)
+     */
+    @Override
+    protected void receiveInfo(GameInfo info) {
+        if(info instanceof PigGameState) {
+            state = (PigGameState)info;
+            if (this.playerNum == state.getPlayerTurn()) {
+                double ran = Math.random();
+                if (ran > .5) {
+                    PigRollAction roll = new PigRollAction(this);
+                    game.sendAction(roll);
+                } else {
+                    PigHoldAction hold = new PigHoldAction(this);
+                    game.sendAction(hold);
+                }
+            }
+        }
+        return;
+    }//receiveInfo
+
+}
