@@ -61,8 +61,15 @@ public class PigHumanPlayer extends GameHumanPlayer implements OnClickListener {
      */
     @Override
     public void receiveInfo(GameInfo info) {
+
         if(info instanceof PigGameState) {
             state = (PigGameState)info;
+            if(state.getPlayerTurn() == 0) {
+                dieImageButton.setBackgroundColor(Color.RED);
+            }
+            else {
+                dieImageButton.setBackgroundColor(Color.BLUE);
+            }
             int p = state.getPlayer1Score();
             playerScoreTextView.setText(p + "");
             int o = state.getPlayer2Score();

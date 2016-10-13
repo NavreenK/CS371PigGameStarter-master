@@ -34,8 +34,12 @@ public class PigComputerPlayer extends GameComputerPlayer {
             if (this.playerNum == state.getPlayerTurn()) {
                 double ran = Math.random();
                 if (ran > .5) {
+                    this.getTimer().setInterval(2000);
+                    this.getTimer().start();
                     PigRollAction roll = new PigRollAction(this);
                     game.sendAction(roll);
+                    getTimer().stop();
+
                 } else {
                     PigHoldAction hold = new PigHoldAction(this);
                     game.sendAction(hold);
@@ -45,4 +49,7 @@ public class PigComputerPlayer extends GameComputerPlayer {
         return;
     }//receiveInfo
 
+    public void timerTicked() {
+
+    }
 }
